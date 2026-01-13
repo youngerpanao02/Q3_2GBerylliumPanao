@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PSHS-MC Club Applicatio Form</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        form {
+            width: 600px;
+            margin: auto;
+        }
+
+        fieldset {
+            margin-bottom: 20px;
+            padding: 15px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 5px;
+            margin-top: 5px;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            background-color: #e6f2ff;
+            outline: 2px solid #3399ff;
+        }
+
+        .error {
+            border: 2px solid red;
+        }
+
+        .buttons {
+            text-align: center;
+        }
+    </style>
+
+    <script>
+        function confirmSubmit() {
+            return confirm("Are you sure you want to submit your application form? :))");
+        }
+
+        function confirmReset() {
+            return confirm("Are you sure you want to clear out your application form? :))");
+        }
+
+        function checkEmpty(field) {
+            if (field.value.trim() === "") {
+                field.classList.add("error");
+            } else {
+                field.classList.remove("error");
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+<h2 style="text-align:center;">PSHS-MC Club Applicatio Form</h2>
+
+<form method="post" action="submit" onsubmit="return confirmSubmit()" onreset="return confirmReset()">
+
+    <!-- FIELDSET 1: INFORMATION #1 to #4 -->
+    <fieldset>
+        <legend>Personal Information</legend>
+
+        <label>
+            Student ID:
+            <input type="number" name="student_id" required onblur="checkEmpty(this)">
+        </label>
+
+        <label>
+            Full Name:
+            <input type="text" name="full_name" required onblur="checkEmpty(this)">
+        </label>
+
+        <label>
+            Birthday:
+            <input type="date" name="birthday" required>
+        </label>
+
+        <label>
+            Email Address:
+            <input type="email" name="email" required onblur="checkEmpty(this)">
+        </label>
+    </fieldset>
+
+    <!-- FIELDSET 2: INFORMATION #5 to #8 -->
+    <fieldset>
+        <legend>Application Details</legend>
+
+        <label>
+            Mobile Phone:
+            <input type="text" name="mobile" required onblur="checkEmpty(this)">
+        </label>
+
+        <label>
+            Grade Level:
+            <select name="grade_level" required>
+                <option value="">-- Select Grade --</option>
+                <option value="g7">Grade 7</option>
+                <option value="g8">Grade 8</option>
+                <option value="g9">Grade 9</option>
+                <option value="g10">Grade 10</option>
+                <option value="g11">Grade 11</option>
+                <option value="g12">Grade 12</option>
+            </select>
+        </label>
+
+        <label>
+            Intern / Extern:
+            <input type="radio" name="status" value="intern_status" required> Intern
+            <input type="radio" name="status" value="extern_status" required> Extern
+        </label>
+
+        <label>
+            Preferred Organization / Club:
+            <select name="club" required>
+                <option value="">-- Select Club --</option>
+                <option value="tech_club">STEM Club</option>
+                <option value="arts_group">Language Arts Club</option>
+                <option value="sports_team">Sports Association</option>
+                <option value="music_society">Humanities Club</option>
+                <option value="volunteer_org">Student Activism Organization</option>
+            </select>
+        </label>
+
+        <label>
+            Reason for your choice of club
+            <textarea name="reason" rows="4" required onblur="checkEmpty(this)"></textarea>
+        </label>
+    </fieldset>
+
+    <div class="buttons">
+        <input type="submit" value="Submit Application">
+        <input type="reset" value="Reset Form">
+    </div>
+
+</form>
+
+</body>
+</html>
