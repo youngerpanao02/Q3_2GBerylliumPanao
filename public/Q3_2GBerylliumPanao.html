@@ -1,151 +1,94 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+<link rel="stylesheet" href="style.css">
 <head>
-    <meta charset="UTF-8">
-    <title>PSHS-MC Club Applicatio Form</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        form {
-            width: 600px;
-            margin: auto;
-        }
-
-        fieldset {
-            margin-bottom: 20px;
-            padding: 15px;
-        }
-
-        label {
-            display: block;
-            margin-top: 10px;
-        }
-
-        input, select, textarea {
-            width: 100%;
-            padding: 5px;
-            margin-top: 5px;
-        }
-
-        input:focus, select:focus, textarea:focus {
-            background-color: #e6f2ff;
-            outline: 2px solid #3399ff;
-        }
-
-        .error {
-            border: 2px solid red;
-        }
-
-        .buttons {
-            text-align: center;
-        }
-    </style>
-
-    <script>
-        function confirmSubmit() {
-            return confirm("Are you sure you want to submit your application form? :))");
-        }
-
-        function confirmReset() {
-            return confirm("Are you sure you want to clear out your application form? :))");
-        }
-
-        function checkEmpty(field) {
-            if (field.value.trim() === "") {
-                field.classList.add("error");
-            } else {
-                field.classList.remove("error");
-            }
-        }
-    </script>
+  <title>View Sign Ups</title>
 </head>
-
 <body>
 
-<h2 style="text-align:center;">PSHS-MC Club Applicatio Form</h2>
+<h1>Club Sign Ups</h1>
 
-<form method="post" action="submit" onsubmit="return confirmSubmit()" onreset="return confirmReset()">
+<select id="filterClub">
+  <option value="ALL">ALL</option>
+  <option value="Science">Science</option>
+  <option value="Arts">Arts</option>
+  <option value="Sports">Sports</option>
+</select>
 
-    <!-- FIELDSET 1: INFORMATION #1 to #4 -->
-    <fieldset>
-        <legend>Personal Information</legend>
+<p id="total"></p>
+<p id="message"></p>
 
-        <label>
-            Student ID:
-            <input type="number" name="student_id" required onblur="checkEmpty(this)">
-        </label>
+<table border="1">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Club</th>
+    </tr>
+  </thead>
+  <tbody id="tableBody"></tbody>
+</table>
 
-        <label>
-            Full Name:
-            <input type="text" name="full_name" required onblur="checkEmpty(this)">
-        </label>
+<a href="signups.html">Back to Sign Up</a>
 
-        <label>
-            Birthday:
-            <input type="date" name="birthday" required>
-        </label>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
 
-        <label>
-            Email Address:
-            <input type="email" name="email" required onblur="checkEmpty(this)">
-        </label>
-    </fieldset>
+  const filterClub = document.getElementById("filterClub");
+  const tableBody = document.getElementById("tableBody");
+  const total = document.getElementById("total");
+  const message = document.getElementById("message");
 
-    <!-- FIELDSET 2: INFORMATION #5 to #8 -->
-    <fieldset>
-        <legend>Application Details</legend>
+  let signUps = JSON.parse(localStorage.getItem("signUps")) || [];
 
-        <label>
-            Mobile Phone:
-            <input type="text" name="mobile" required onblur="checkEmpty(this)">
-        </label>
+  function displaySignUps(selectedClub) {
+    tableBody.innerHTML = "";
+    message.textContent = "";
+    total.textContent = "";
 
-        <label>
-            Grade Level:
-            <select name="grade_level" required>
-                <option value="">-- Select Grade --</option>
-                <option value="g7">Grade 7</option>
-                <option value="g8">Grade 8</option>
-                <option value="g9">Grade 9</option>
-                <option value="g10">Grade 10</option>
-                <option value="g11">Grade 11</option>
-                <option value="g12">Grade 12</option>
-            </select>
-        </label>
+    if (signUps.length === 0) {
+      message.textContent = "No sign ups saved";
+      return;
+    }
 
-        <label>
-            Intern / Extern:
-            <input type="radio" name="status" value="intern_status" required> Intern
-            <input type="radio" name="status" value="extern_status" required> Extern
-        </label>
+    let filtered = signUps;
 
-        <label>
-            Preferred Organization / Club:
-            <select name="club" required>
-                <option value="">-- Select Club --</option>
-                <option value="tech_club">STEM Club</option>
-                <option value="arts_group">Language Arts Club</option>
-                <option value="sports_team">Sports Association</option>
-                <option value="music_society">Humanities Club</option>
-                <option value="volunteer_org">Student Activism Organization</option>
-            </select>
-        </label>
+    if (selectedClub !== "ALL") {
+      filtered = signUps.filter(function (item) {
+        return item.club === selectedClub;
+      });
+    }
 
-        <label>
-            Reason for your choice of club
-            <textarea name="reason" rows="4" required onblur="checkEmpty(this)"></textarea>
-        </label>
-    </fieldset>
+    if (filtered.length === 0) {
+      message.textContent = "No sign ups for this club";
+      total.textContent = "Total Sign Ups: 0";
+      return;
+    }
 
-    <div class="buttons">
-        <input type="submit" value="Submit Application">
-        <input type="reset" value="Reset Form">
-    </div>
+    filtered.forEach(function (item) {
+      const row = document.createElement("tr");
 
-</form>
+      const nameCell = document.createElement("td");
+      nameCell.textContent = item.name;
+
+      const clubCell = document.createElement("td");
+      clubCell.textContent = item.club;
+
+      row.appendChild(nameCell);
+      row.appendChild(clubCell);
+      tableBody.appendChild(row);
+    });
+
+    total.textContent = "Total Sign Ups: " + filtered.length;
+  }
+
+  filterClub.addEventListener("change", function () {
+    displaySignUps(this.value);
+  });
+
+  displaySignUps("ALL");
+
+});
+</script>
 
 </body>
 </html>

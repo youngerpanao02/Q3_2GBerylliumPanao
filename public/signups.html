@@ -1,0 +1,40 @@
+<form id="signupForm">
+  <link rel="stylesheet" href="style.css">
+  <input type="text" id="name" placeholder="Student Name" required>
+  <select id="club" required>
+    <option value="">Select Club</option>
+    <option value="Science">Science</option>
+    <option value="Arts">Arts</option>
+    <option value="Sports">Sports</option>
+  </select>
+  <button type="submit">Submit</button>
+  <button type="button" onclick="viewSignUps()">View Sign Ups</button>
+</form>
+<script>
+const form = document.getElementById("signupForm");
+
+form.addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const name = document.getElementById("name").value;
+  const club = document.getElementById("club").value;
+
+  let signUps = JSON.parse(localStorage.getItem("signUps"));
+  if (!signUps) {
+    signUps = [];
+  }
+
+  signUps.push({
+    name: name,
+    club: club
+  });
+
+  localStorage.setItem("signUps", JSON.stringify(signUps));
+  alert("Sign up saved");
+  form.reset();
+});
+
+function viewSignUps() {
+  window.location.href = "Q3_2GBerylliumPanao.html";
+}
+</script>
