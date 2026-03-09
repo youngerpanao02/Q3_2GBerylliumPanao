@@ -1,0 +1,109 @@
+/* general apge styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7f6;
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+}
+
+/* the main card container */
+.container {
+    background: white;
+    width: 400px;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* form layout */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+label {
+    font-weight: bold;
+    font-size: 14px;
+    color: #555;
+}
+
+input, select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+/* style for the star rating */
+.star-rating {
+    font-size: 24px;
+    cursor: pointer;
+    color: #ccc; 
+    margin-bottom: 10px;
+}
+
+/* submit button */
+#addBtn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#addBtn:hover {
+    background-color: #0056b3;
+}
+
+/* movie list items */
+.movie-item {
+    background: #fdfdfd;
+    border: 1px solid #eee;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 25px 0;
+}
+.delete-btn {
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.delete-btn:hover {
+    background-color: #e2e6ea;
+    border-color: #adb5bd;
+}
+
+/* Adjust movie item to fit the button on the right */
+.movie-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #eee;
+    margin-top: 5px;
+    border-radius: 5px;
+}
